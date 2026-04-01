@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎩 Chapeaux du Magicien</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f4f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+ 
+    h1 {
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+    }
+ 
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      margin-top: 4px;
+    }
+ 
+    .hats-row {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 760px;
+    }
+ 
+    .hat-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 260px;
+    }
+ 
+    .hat-label {
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      color: #1a1a1a;
+    }
+ 
+    .hat-wrap {
+      width: 160px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .hat-wrap:hover { transform: translateY(-4px); }
+    .hat-wrap:active { transform: scale(0.97); }
+    .hat-svg { width: 100%; display: block; }
+ 
+    .draw-btn {
+      padding: 10px 24px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+      width: 100%;
+      max-width: 220px;
+    }
+    .draw-btn:hover { background: #f0ede8; border-color: #aaa; }
+    .draw-btn:active { transform: scale(0.98); }
+ 
+    .combo-btn {
+      padding: 12px 32px;
+      border: 1.5px solid #aaa;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .combo-btn:hover { background: #f0ede8; }
+    .combo-btn:active { transform: scale(0.98); }
+ 
+    .result-area {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .card {
+      flex: 1;
+      min-width: 260px;
+      background: #fff;
+      border: 1px solid #e0ddd8;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: border-color 0.3s;
+    }
+    .card.has-result { border-color: #aaa; }
+ 
+    .card-tag {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #999;
+    }
+ 
+    .card-value {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.4;
+    }
+ 
+    .card-empty {
+      font-size: 14px;
+      color: #bbb;
+      font-weight: 400;
+    }
+ 
+    .card-example {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.4;
+    }
+ 
+    .history-section {
+      width: 100%;
+      max-width: 760px;
+    }
+ 
+    .history-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      margin-bottom: 8px;
+    }
+ 
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+ 
+    .history-item {
+      background: #eceae5;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #1a1a1a;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+ 
+    .history-num {
+      font-weight: 600;
+      color: #aaa;
+      min-width: 20px;
+    }
+ 
+    .history-text { line-height: 1.5; }
+ 
+    .history-sep { color: #aaa; margin: 0 4px; }
+ 
+    .clear-btn {
+      margin-top: 10px;
+      padding: 6px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: transparent;
+      color: #888;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .clear-btn:hover { background: #eceae5; }
+ 
+    @keyframes pop {
+      0%   { transform: scale(0.85); opacity: 0; }
+      60%  { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop { animation: pop 0.3s ease; }
+ 
+    @media (max-width: 500px) {
+      .hats-row { gap: 1rem; }
+      .hat-wrap { width: 130px; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <div>
+    <h1>🎩 Chapeaux du magicien</h1>
+    <p class="subtitle">Tire un billet de chaque chapeau ou tire les deux d'un coup !</p>
+  </div>
+ 
+  <div class="hats-row">
+    <div class="hat-section">
+      <div class="hat-label">Chapeau 1 · Types de jeux</div>
+      <div class="hat-wrap" onclick="draw('jeu')">
+        <svg class="hat-svg" viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="90" cy="138" rx="80" ry="16" fill="#4A3728"/>
+          <rect x="30" y="55" width="120" height="88" rx="8" fill="#6B4C3B"/>
+          <ellipse cx="90" cy="55" rx="60" ry="14" fill="#7A5A47"/>
+          <rect x="48" y="20" width="84" height="42" rx="10" fill="#6B4C3B"/>
+          <ellipse cx="90" cy="20" rx="42" ry="10" fill="#7A5A47"/>
+          <rect x="52" y="72" width="76" height="8" rx="4" fill="#C8A96E"/>
+          <text x="90" y="115" text-anchor="middle" font-size="30">🎮</text>
+        </svg>
+      </div>
+      <button class="draw-btn" onclick="draw('jeu')">Tirer un billet</button>
+    </div>
+ 
+    <div class="hat-section">
+      <div class="hat-label">Chapeau 2 · Problèmes</div>
+      <div class="hat-wrap" onclick="draw('probleme')">
+        <svg class="hat-svg" viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="90" cy="138" rx="80" ry="16" fill="#2C3E50"/>
+          <rect x="30" y="55" width="120" height="88" rx="8" fill="#34495E"/>
+          <ellipse cx="90" cy="55" rx="60" ry="14" fill="#3D566E"/>
+          <rect x="48" y="20" width="84" height="42" rx="10" fill="#34495E"/>
+          <ellipse cx="90" cy="20" rx="42" ry="10" fill="#3D566E"/>
+          <rect x="52" y="72" width="76" height="8" rx="4" fill="#F39C12"/>
+          <text x="90" y="115" text-anchor="middle" font-size="30">⚡</text>
+        </svg>
+      </div>
+      <button class="draw-btn" onclick="draw('probleme')">Tirer un billet</button>
+    </div>
+  </div>
+ 
+  <button class="combo-btn" onclick="drawBoth()">🎩🎩 Tirer les deux d'un coup !</button>
+ 
+  <div class="result-area">
+    <div class="card" id="card-jeu">
+      <div class="card-tag">Type de jeu</div>
+      <div id="jeu-value" class="card-empty">— pas encore tiré —</div>
+      <div id="jeu-example" class="card-example"></div>
+    </div>
+    <div class="card" id="card-probleme">
+      <div class="card-tag">Problème</div>
+      <div id="prob-value" class="card-empty">— pas encore tiré —</div>
+    </div>
+  </div>
+ 
+  <div class="history-section" id="history-section" style="display:none;">
+    <div class="history-title">Historique des tirages</div>
+    <div class="history-list" id="history-list"></div>
+    <button class="clear-btn" onclick="clearHistory()">Effacer l'historique</button>
+  </div>
+ 
+  <script>
+    const jeux = [
+      { label: "Jeux de société classiques", ex: "Uno, Dobble, Loup-garou" },
+      { label: "Jeux de société coopératifs", ex: "Pandémie Junior, Le Verger" },
+      { label: "Jeux de plein air traditionnels", ex: "1, 2, 3 Soleil, Cache-cache" },
+      { label: "Jeux d'eau", ex: "Bataille d'eau, Jeux avec éponges" },
+      { label: "Jeux de construction", ex: "Lego, Kapla, Cubes géants" },
+      { label: "Jeux créatifs et manuels", ex: "Dessin collaboratif, Origami" },
+      { label: "Jeux éducatifs", ex: "Jeux de mémoire, Pictionary éducatif" },
+      { label: "Jeux de mots et d'esprit", ex: "Petit Bac, Time's Up Kids" },
+      { label: "Jeux de rôle et d'imagination", ex: "Chasse au trésor, Jeux de théâtre" },
+      { label: "Jeux de parcours et d'obstacles", ex: "Parcours de motricité, Jeu de l'oie géant" },
+      { label: "Jeux de ballon et sport adapté", ex: "Ballon prisonnier, Jeux de relais" },
+      { label: "Jeux de musique et de rythme", ex: "Danse musicale, Jeux de percussion" },
+      { label: "Jeux de stratégie simplifiés", ex: "Puissance 4, Morpion géant" },
+      { label: "Jeux de devinettes et d'énigmes", ex: "Charades, Mimes" },
+      { label: "Jeux d'équilibre et de coordination", ex: "Parcours en équilibre, Quilles" },
+      { label: "Jeux de coopération physique", ex: "Jeux avec parachute, Jeux de corde" },
+      { label: "Jeux de nature et d'exploration", ex: "Chasse aux trésors, Observation d'insectes" },
+      { label: "Jeux de société modernes adaptés", ex: "Dixit, Sushi Go!" },
+      { label: "Escape game adapté aux enfants", ex: "Énigmes dans une salle, Chasse aux indices" },
+      { label: "Jeux de recyclage et d'écologie", ex: "Création d'objets recyclés" },
+    ];
+ 
+    const problemes = [
+      "Manque d'engagement des enfants",
+      "Conflits entre enfants",
+      "Règles mal comprises",
+      "Matériel manquant ou cassé",
+      "Trop ou trop peu de participants",
+      "Niveaux d'âge ou de compétence trop variés",
+      "Enfants dominants",
+      "Bruit excessif",
+      "Manque de temps",
+      "Enfants qui abandonnent en cours de route",
+      "Problèmes de sécurité",
+      "Matériel inadapté",
+      "Manque d'espace",
+      "Météo défavorable (jeux en extérieur)",
+      "Parents ou accompagnateurs perturbateurs",
+      "Enfants qui ne respectent pas les consignes",
+      "Manque de motivation de l'animateur",
+      "Problèmes logistiques",
+      "Jeux trop répétitifs",
+      "Gestion des gagnants / perdants",
+    ];
+ 
+    let history = [];
+ 
+    function rand(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+ 
+    function animateCard(id) {
+      const el = document.getElementById(id);
+      el.classList.remove('pop');
+      void el.offsetWidth;
+      el.classList.add('pop');
+      el.classList.add('has-result');
+    }
+ 
+    function draw(type) {
+      if (type === 'jeu') {
+        const j = rand(jeux);
+        const vEl = document.getElementById('jeu-value');
+        vEl.className = 'card-value';
+        vEl.textContent = j.label;
+        document.getElementById('jeu-example').textContent = 'ex : ' + j.ex;
+        animateCard('card-jeu');
+      } else {
+        const p = rand(problemes);
+        const vEl = document.getElementById('prob-value');
+        vEl.className = 'card-value';
+        vEl.textContent = p;
+        animateCard('card-probleme');
+      }
+    }
+ 
+    function drawBoth() {
+      const j = rand(jeux);
+      const p = rand(problemes);
+ 
+      const jv = document.getElementById('jeu-value');
+      jv.className = 'card-value';
+      jv.textContent = j.label;
+      document.getElementById('jeu-example').textContent = 'ex : ' + j.ex;
+      animateCard('card-jeu');
+ 
+      const pv = document.getElementById('prob-value');
+      pv.className = 'card-value';
+      pv.textContent = p;
+      animateCard('card-probleme');
+ 
+      history.unshift({ jeu: j.label, prob: p });
+      if (history.length > 10) history.pop();
+      renderHistory();
+    }
+ 
+    function renderHistory() {
+      const section = document.getElementById('history-section');
+      const list = document.getElementById('history-list');
+      if (history.length === 0) { section.style.display = 'none'; return; }
+      section.style.display = 'block';
+      list.innerHTML = history.map((h, i) => `
+        <div class="history-item">
+          <span class="history-num">${i + 1}.</span>
+          <span class="history-text">
+            <strong>${h.jeu}</strong>
+            <span class="history-sep">·</span>
+            ${h.prob}
+          </span>
+        </div>
+      `).join('');
+    }
+ 
+    function clearHistory() {
+      history = [];
+      renderHistory();
+    }
+  </script>
+ 
+</body>
+</html>
