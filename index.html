@@ -6,7 +6,7 @@
   <title>🎩 Chapeaux du Magicien</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: system-ui, -apple-system, sans-serif;
       background: #f5f4f0;
@@ -18,20 +18,20 @@
       align-items: center;
       gap: 2rem;
     }
- 
+
     h1 {
       font-size: 26px;
       font-weight: 600;
       text-align: center;
     }
- 
+
     .subtitle {
       font-size: 14px;
       color: #666;
       text-align: center;
       margin-top: 4px;
     }
- 
+
     .hats-row {
       display: flex;
       gap: 2rem;
@@ -40,7 +40,7 @@
       width: 100%;
       max-width: 760px;
     }
- 
+
     .hat-section {
       display: flex;
       flex-direction: column;
@@ -49,14 +49,14 @@
       flex: 1;
       min-width: 260px;
     }
- 
+
     .hat-label {
       font-size: 15px;
       font-weight: 600;
       text-align: center;
       color: #1a1a1a;
     }
- 
+
     .hat-wrap {
       width: 160px;
       cursor: pointer;
@@ -65,7 +65,7 @@
     .hat-wrap:hover { transform: translateY(-4px); }
     .hat-wrap:active { transform: scale(0.97); }
     .hat-svg { width: 100%; display: block; }
- 
+
     .draw-btn {
       padding: 10px 24px;
       border: 1.5px solid #ccc;
@@ -81,7 +81,7 @@
     }
     .draw-btn:hover { background: #f0ede8; border-color: #aaa; }
     .draw-btn:active { transform: scale(0.98); }
- 
+
     .combo-btn {
       padding: 12px 32px;
       border: 1.5px solid #aaa;
@@ -95,7 +95,7 @@
     }
     .combo-btn:hover { background: #f0ede8; }
     .combo-btn:active { transform: scale(0.98); }
- 
+
     .result-area {
       width: 100%;
       max-width: 760px;
@@ -104,7 +104,7 @@
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .card {
       flex: 1;
       min-width: 260px;
@@ -122,7 +122,7 @@
       transition: border-color 0.3s;
     }
     .card.has-result { border-color: #aaa; }
- 
+
     .card-tag {
       font-size: 11px;
       font-weight: 600;
@@ -130,44 +130,44 @@
       letter-spacing: 0.07em;
       color: #999;
     }
- 
+
     .card-value {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       color: #1a1a1a;
-      line-height: 1.4;
+      line-height: 1.5;
     }
- 
+
     .card-empty {
       font-size: 14px;
       color: #bbb;
       font-weight: 400;
     }
- 
+
     .card-example {
       font-size: 13px;
       color: #777;
       line-height: 1.4;
     }
- 
+
     .history-section {
       width: 100%;
       max-width: 760px;
     }
- 
+
     .history-title {
       font-size: 13px;
       font-weight: 600;
       color: #888;
       margin-bottom: 8px;
     }
- 
+
     .history-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
- 
+
     .history-item {
       background: #eceae5;
       border-radius: 8px;
@@ -178,17 +178,16 @@
       gap: 8px;
       align-items: flex-start;
     }
- 
+
     .history-num {
       font-weight: 600;
       color: #aaa;
       min-width: 20px;
     }
- 
+
     .history-text { line-height: 1.5; }
- 
     .history-sep { color: #aaa; margin: 0 4px; }
- 
+
     .clear-btn {
       margin-top: 10px;
       padding: 6px 16px;
@@ -200,14 +199,14 @@
       cursor: pointer;
     }
     .clear-btn:hover { background: #eceae5; }
- 
+
     @keyframes pop {
       0%   { transform: scale(0.85); opacity: 0; }
       60%  { transform: scale(1.05); }
       100% { transform: scale(1); opacity: 1; }
     }
     .pop { animation: pop 0.3s ease; }
- 
+
     @media (max-width: 500px) {
       .hats-row { gap: 1rem; }
       .hat-wrap { width: 130px; }
@@ -215,12 +214,12 @@
   </style>
 </head>
 <body>
- 
+
   <div>
     <h1>🎩 Chapeaux du magicien</h1>
     <p class="subtitle">Tire un billet de chaque chapeau ou tire les deux d'un coup !</p>
   </div>
- 
+
   <div class="hats-row">
     <div class="hat-section">
       <div class="hat-label">Chapeau 1 · Types de jeux</div>
@@ -237,10 +236,10 @@
       </div>
       <button class="draw-btn" onclick="draw('jeu')">Tirer un billet</button>
     </div>
- 
+
     <div class="hat-section">
-      <div class="hat-label">Chapeau 2 · Problèmes</div>
-      <div class="hat-wrap" onclick="draw('probleme')">
+      <div class="hat-label">Chapeau 2 · Objectifs pédagogiques</div>
+      <div class="hat-wrap" onclick="draw('objectif')">
         <svg class="hat-svg" viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="90" cy="138" rx="80" ry="16" fill="#2C3E50"/>
           <rect x="30" y="55" width="120" height="88" rx="8" fill="#34495E"/>
@@ -248,33 +247,33 @@
           <rect x="48" y="20" width="84" height="42" rx="10" fill="#34495E"/>
           <ellipse cx="90" cy="20" rx="42" ry="10" fill="#3D566E"/>
           <rect x="52" y="72" width="76" height="8" rx="4" fill="#F39C12"/>
-          <text x="90" y="115" text-anchor="middle" font-size="30">⚡</text>
+          <text x="90" y="115" text-anchor="middle" font-size="30">🎯</text>
         </svg>
       </div>
-      <button class="draw-btn" onclick="draw('probleme')">Tirer un billet</button>
+      <button class="draw-btn" onclick="draw('objectif')">Tirer un billet</button>
     </div>
   </div>
- 
+
   <button class="combo-btn" onclick="drawBoth()">🎩🎩 Tirer les deux d'un coup !</button>
- 
+
   <div class="result-area">
     <div class="card" id="card-jeu">
       <div class="card-tag">Type de jeu</div>
       <div id="jeu-value" class="card-empty">— pas encore tiré —</div>
       <div id="jeu-example" class="card-example"></div>
     </div>
-    <div class="card" id="card-probleme">
-      <div class="card-tag">Problème</div>
-      <div id="prob-value" class="card-empty">— pas encore tiré —</div>
+    <div class="card" id="card-objectif">
+      <div class="card-tag">Objectif pédagogique</div>
+      <div id="obj-value" class="card-empty">— pas encore tiré —</div>
     </div>
   </div>
- 
+
   <div class="history-section" id="history-section" style="display:none;">
     <div class="history-title">Historique des tirages</div>
     <div class="history-list" id="history-list"></div>
     <button class="clear-btn" onclick="clearHistory()">Effacer l'historique</button>
   </div>
- 
+
   <script>
     const jeux = [
       { label: "Jeux de société classiques", ex: "Uno, Dobble, Loup-garou" },
@@ -298,36 +297,36 @@
       { label: "Escape game adapté aux enfants", ex: "Énigmes dans une salle, Chasse aux indices" },
       { label: "Jeux de recyclage et d'écologie", ex: "Création d'objets recyclés" },
     ];
- 
-    const problemes = [
-      "Manque d'engagement des enfants",
-      "Conflits entre enfants",
-      "Règles mal comprises",
-      "Matériel manquant ou cassé",
-      "Trop ou trop peu de participants",
-      "Niveaux d'âge ou de compétence trop variés",
-      "Enfants dominants",
-      "Bruit excessif",
-      "Manque de temps",
-      "Enfants qui abandonnent en cours de route",
-      "Problèmes de sécurité",
-      "Matériel inadapté",
-      "Manque d'espace",
-      "Météo défavorable (jeux en extérieur)",
-      "Parents ou accompagnateurs perturbateurs",
-      "Enfants qui ne respectent pas les consignes",
-      "Manque de motivation de l'animateur",
-      "Problèmes logistiques",
-      "Jeux trop répétitifs",
-      "Gestion des gagnants / perdants",
+
+    const objectifs = [
+      "Comprendre et utiliser un vocabulaire précis pour communiquer clairement à l'oral et à l'écrit.",
+      "Lire, analyser et interpréter différents types de documents (textes, images, graphiques, cartes, schémas).",
+      "Formuler une question pertinente et identifier les informations nécessaires pour y répondre.",
+      "Développer une démarche d'investigation : observer, émettre des hypothèses, vérifier, conclure.",
+      "Organiser des informations sous forme de tableaux, cartes mentales, schémas ou résumés.",
+      "Utiliser des outils numériques pour rechercher, produire, communiquer ou collaborer.",
+      "Travailler en groupe en adoptant une posture constructive : écouter, proposer, coopérer, réguler.",
+      "Argumenter un point de vue en mobilisant des exemples, des preuves ou des références.",
+      "Développer l'esprit critique : distinguer faits/opinions, vérifier la fiabilité d'une source, repérer les biais.",
+      "Résoudre un problème en choisissant une stratégie adaptée et en expliquant sa démarche.",
+      "Planifier et gérer un projet : définir des étapes, répartir les tâches, respecter des échéances.",
+      "Mobiliser la créativité pour proposer des solutions originales, imaginer, concevoir ou produire.",
+      "Comprendre et utiliser des représentations mathématiques (mesures, proportions, graphiques, modèles).",
+      "S'exprimer à l'oral de manière structurée, adaptée au public et à la situation.",
+      "Développer l'autonomie dans le travail : s'autoévaluer, demander de l'aide, ajuster sa stratégie.",
+      "Interpréter des données et en tirer des conclusions argumentées.",
+      "Comprendre et respecter des règles de vie collective dans un cadre scolaire ou collaboratif.",
+      "Identifier les enjeux d'un sujet (scientifiques, sociaux, historiques, environnementaux, éthiques).",
+      "Faire preuve de persévérance face à une tâche complexe ou longue.",
+      "Relier des connaissances issues de différentes disciplines pour comprendre un phénomène ou résoudre une situation.",
     ];
- 
+
     let history = [];
- 
+
     function rand(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
- 
+
     function animateCard(id) {
       const el = document.getElementById(id);
       el.classList.remove('pop');
@@ -335,7 +334,7 @@
       el.classList.add('pop');
       el.classList.add('has-result');
     }
- 
+
     function draw(type) {
       if (type === 'jeu') {
         const j = rand(jeux);
@@ -345,34 +344,34 @@
         document.getElementById('jeu-example').textContent = 'ex : ' + j.ex;
         animateCard('card-jeu');
       } else {
-        const p = rand(problemes);
-        const vEl = document.getElementById('prob-value');
+        const o = rand(objectifs);
+        const vEl = document.getElementById('obj-value');
         vEl.className = 'card-value';
-        vEl.textContent = p;
-        animateCard('card-probleme');
+        vEl.textContent = o;
+        animateCard('card-objectif');
       }
     }
- 
+
     function drawBoth() {
       const j = rand(jeux);
-      const p = rand(problemes);
- 
+      const o = rand(objectifs);
+
       const jv = document.getElementById('jeu-value');
       jv.className = 'card-value';
       jv.textContent = j.label;
       document.getElementById('jeu-example').textContent = 'ex : ' + j.ex;
       animateCard('card-jeu');
- 
-      const pv = document.getElementById('prob-value');
-      pv.className = 'card-value';
-      pv.textContent = p;
-      animateCard('card-probleme');
- 
-      history.unshift({ jeu: j.label, prob: p });
+
+      const ov = document.getElementById('obj-value');
+      ov.className = 'card-value';
+      ov.textContent = o;
+      animateCard('card-objectif');
+
+      history.unshift({ jeu: j.label, obj: o });
       if (history.length > 10) history.pop();
       renderHistory();
     }
- 
+
     function renderHistory() {
       const section = document.getElementById('history-section');
       const list = document.getElementById('history-list');
@@ -384,17 +383,17 @@
           <span class="history-text">
             <strong>${h.jeu}</strong>
             <span class="history-sep">·</span>
-            ${h.prob}
+            ${h.obj}
           </span>
         </div>
       `).join('');
     }
- 
+
     function clearHistory() {
       history = [];
       renderHistory();
     }
   </script>
- 
+
 </body>
 </html>
